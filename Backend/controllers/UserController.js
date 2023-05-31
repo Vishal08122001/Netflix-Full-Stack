@@ -4,7 +4,6 @@ module.exports.addToLikedmovies = async (req, res) => {
   try {
     const { email, data } = req.body;
     const user = await User.findOne({ email });
-    console.log(user);
     if (user) {
       const { likedMovies } = user;
       const movieAlreadyLiked = likedMovies.find(({ id }) => id === data.id); // Fixed the comparison here
@@ -35,6 +34,10 @@ module.exports.addToLikedmovies = async (req, res) => {
   }
 };
 
+
+///////////////////////////////////////////////////////////////////////////////////
+
+
 module.exports.getLikedMovies = async (req, res) => {
   try {
     const { email } = req.params;
@@ -49,3 +52,24 @@ module.exports.getLikedMovies = async (req, res) => {
     return res.json({ msg: "Error fetching movies: " + error });
   }
 };
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////
+
+
+module.exports.removeList=async(req,res)=>{
+  try {
+    const {email,id} = req.params
+    const user = await User.findOne({email})
+    if(user){
+      const newData = user.likedMovies.filter((elem)=> elem.id != id )
+      user.likedMovies = newData;
+      await user.save()
+      res.json({newData})
+    }
+  } catch (error) {
+    console.log(error)
+  } 
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import video from "../assets/video.mp4";
+import video1 from "../assets/video1.mp4";
 import { IoPlayCircleSharp } from "react-icons/io5";
 import { RiThumbDownFill, RiThumbUpFill } from "react-icons/ri";
 import { BsCheck } from "react-icons/bs";
@@ -44,6 +44,16 @@ const Card = React.memo(({ movieData, isLiked = false }) => {
     }
   };
 
+  const removefromList = (id) => {
+    try {
+      axios.delete(
+        `https://agreeable-button-lion.cyclic.app/api/user/liked/${email}/delete/${id}`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <img
@@ -60,7 +70,7 @@ const Card = React.memo(({ movieData, isLiked = false }) => {
               onClick={() => navigate("/player")}
             />
             <video
-              src={video}
+              src={video1}
               autoPlay
               loop
               muted
@@ -82,7 +92,10 @@ const Card = React.memo(({ movieData, isLiked = false }) => {
                 <RiThumbUpFill title="Like" />
                 <RiThumbDownFill title="Dislike" />
                 {isLiked ? (
-                  <BsCheck title="Remove from list" />
+                  <BsCheck
+                    title="Remove from list"
+                    onClick={() => removefromList(movieData.id)}
+                  />
                 ) : (
                   <AiOutlinePlus title="Add to my list" onClick={addToList} />
                 )}

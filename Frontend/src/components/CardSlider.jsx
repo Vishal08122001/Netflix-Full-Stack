@@ -85,10 +85,12 @@ const Container = styled.div`
       display: none;
     }
     .left {
+      margin-top:5rem;
       left: 0;
     }
     .right {
       right: 0;
+      margin-top:5rem;;
     }
   }
 

@@ -9,8 +9,7 @@
       name="description"
       content="Web site created using create-react-app"
     />
-    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
-
+    <link rel="shortcut icon" href="./favicon.webp" type="image/x-icon" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
     <title>Netflix</title>
@@ -18,5 +17,33 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
+    <script>
+      function loadScript(src, onload) {
+        var script = document.createElement('script');
+        script.src = src;
+        script.onload = onload;
+        document.body.appendChild(script);
+      }
+
+      function loadApp() {
+        // Function to load your main app JavaScript file
+        loadScript('../src/App.jsx');
+      }
+
+      if (window.IntersectionObserver) {
+        // Use Intersection Observer API to lazy load the app.js file
+        var observer = new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting) {
+            loadApp();
+            observer.disconnect();
+          }
+        });
+        observer.observe(document.getElementById('root'));
+      } else {
+        // Fallback for browsers that do not support Intersection Observer
+        loadApp();
+      }
+    </script>
   </body>
 </html>

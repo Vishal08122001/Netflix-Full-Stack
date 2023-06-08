@@ -11,7 +11,7 @@ const SelectGenre = ({ genres, type }) => {
   };
 
   return (
-    <Select className="flex" onChange={handleGenreChange}>
+    <Select onChange={handleGenreChange}>
       {genres.map((genre) => (
         <option value={genre.id} key={genre.id}>
           {genre.name}
@@ -29,9 +29,8 @@ const Select = styled.select`
   color: white;
 
   @media (max-width: 768px) {
-    margin-left: 0;
-    margin-top: 1rem;
-    width: 100%;
+    margin-left: 1.5rem;
+    margin-top: 2.5rem;
   }
 `;
 

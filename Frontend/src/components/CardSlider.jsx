@@ -10,10 +10,10 @@ const CardSlider = React.memo(({ data, title }) => {
   const handleDirection = (direction) => {
     let distance = listRef.current.getBoundingClientRect().x - 70;
     if (direction === "left" && slider > 0) {
-      listRef.current.style.transform = `translateX(${230 + distance}px)`;
+      listRef.current.style.transform = `translateX(${240 + distance}px)`;
       setSlider(slider - 1);
     }
-    if (direction === "right" && slider < 4) {
+    if (direction === "right" && slider < 10) {
       listRef.current.style.transform = `translateX(${-230 + distance}px)`;
       setSlider(slider + 1);
     }
@@ -24,13 +24,14 @@ const CardSlider = React.memo(({ data, title }) => {
       <h1>{title}</h1>
 
       <div className="wrapper">
-        <div className={`slider-action left flex a-center j-center`}>
-          <AiOutlineLeft
-            onClick={() => {
-              handleDirection("left");
-            }}
-          />
-        </div>
+         {slider > 0 && (
+          <div
+            className={`slider-action left flex a-center j-center`}
+            onClick={() => handleDirection("left")}
+          >
+            <AiOutlineLeft />
+          </div>
+        )}
         <div className="flex slider" ref={listRef}>
           {data.map((movie, index) => {
             return (
@@ -41,13 +42,14 @@ const CardSlider = React.memo(({ data, title }) => {
           })}
         </div>
 
-        <div className={`slider-action right  flex a-center j-center`}>
-          <AiOutlineRight
-            onClick={() => {
-              handleDirection("right");
-            }}
-          />
-        </div>
+        {slider < data.length - 1 && (
+          <div
+            className={`slider-action right  flex a-center j-center`}
+            onClick={() => handleDirection("right")}
+          >
+            <AiOutlineRight />
+          </div>
+        )}
       </div>
     </Container>
   );
@@ -107,6 +109,7 @@ const Container = styled.div`
       }
 
       .slider-action {
+        
         width: 30px;
         svg {
           font-size: 1.5rem;
@@ -138,3 +141,6 @@ const Container = styled.div`
 `;
 
 export default CardSlider;
+
+
+

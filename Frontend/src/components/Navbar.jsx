@@ -68,10 +68,10 @@ const Navbar = ({ isScrolled, search, setSearch }) => {
               onMouseLeave={() => {
                 setinputHover(false);
               }}
-              onBlur={() => {
-                setShowSearch(false);
-                setinputHover(false);
-              }}
+              // onBlur={() => {
+              //   setShowSearch(false);
+              //   setinputHover(false);
+              // }}
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
